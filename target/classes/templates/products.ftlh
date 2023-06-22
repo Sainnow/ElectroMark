@@ -1,0 +1,68 @@
+<#import "blocks/template.ftlh" as t>
+<@t.template user>
+    <link rel="stylesheet" href="/static/css/menu.css">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid" >
+            <div >
+            <ul id="firsul" class="menu"  >
+                <li>
+                    <button class="btn btn-outline-dark btn-light btn-lg " type="submit" >Категории</button>
+                    <ul >
+                        <#list typename as typename >
+                            <li>
+                                <form class="d-flex " method="get" action="/">
+                                    <button class="btn btn-outline-dark btn-light btn-lg"  value="${typename.id}" name="searchTypenameId" type="submit">${typename.name}</button>
+                                </form>
+                                <ul>
+                                    <#list classname as classname >
+                                    <#if typename.id==classname.typename.id>
+                                    <li>
+                                        <form class="d-flex " method="get" action="/">
+                                            <button class="btn btn-outline-dark btn-light btn-lg"  value="${classname.id}" name="searchClassId" type="submit">${classname.name}</button>
+                                        </form>
+                                        </#if>
+
+                                        </#list>
+                                    </li>
+                                </ul>
+                            </li>
+                        </#list>
+                    </ul>
+                </li>
+            </ul>
+            </div>
+            <div>
+                <form class="d-flex " method="get" action="/">
+                    <input <#if searchWord??>value="${searchWord}"</#if> name="searchWord" class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
+                    <button class="btn btn-outline-dark btn-lg" type="submit">Поиск</button>
+                </form>
+            </div>
+            </div>
+    </nav>
+    <br>
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4">
+        <#list products as product>
+        <div class="col" style="height: 350px">
+            <a href="/product/${product.id}" >
+                <div class="card " style="width: 19rem">
+                    <div class="card-body ">
+                        <img class="card-img-bottom" src=
+                        "/images/${product.previewImageId}"
+                             alt="Card image" style="width: 100%;">
+                        <h4 class="card-title">${product.title}</h4>
+                        <br>
+                        <p class="card-text">${product.price} BYN</p>
+                        <a href="/product/${product.id}" class="btn btn-success btn-lg">Подробнее</a>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <#else>
+            <h1 style="text-align: center">Не найдено</h1>
+        </#list>
+    </div>
+    <br>
+
+    <br>
+
+</@t.template>
