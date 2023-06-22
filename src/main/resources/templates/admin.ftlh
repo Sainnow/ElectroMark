@@ -1,7 +1,7 @@
 <#import "blocks/template.ftlh" as t>
-<@t.template user>
+<@t.template user >
     `<h1 style="text-align: center">Панель администратора</h1><hr>
-    <table class="table table-hover table-dark">
+    <table class="table table-hover table-outline-dark">
         <tr>
             <th scope="col">Email</th>
             <th scope="col">Номер телефона</th>
@@ -20,7 +20,7 @@
                 <th>
                     <form action="/admin/user/ban/${user.id}" method="post">
                         <input type="hidden" name="_csrf" value="${_csrf.token}">
-                        <input type="submit" class="btn btn-light" value="Бан">
+                        <input type="submit" class="btn btn-light" value="<#if user.active>Бан<#else>АнБан</#if>">
                     </form>
                 </th>
                 <th><a href="/admin/user/edit/${user.id}">Редактировние</a></th>

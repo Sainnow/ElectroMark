@@ -26,6 +26,11 @@ public class User implements UserDetails {
     @Column(length = 1000)
     private String password;
 
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private List<Basket> baskets = new ArrayList<>();
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"))
@@ -36,6 +41,9 @@ public class User implements UserDetails {
             mappedBy = "user")
     private List<Product> products = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private List<Order> orders = new ArrayList<>();
     public void addProductToUser(Product product) {
         product.setUser(this);
         products.add(product);

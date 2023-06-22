@@ -1,6 +1,7 @@
 package com.yakubashko.electromark.controller;
 
 import com.yakubashko.electromark.model.User;
+import com.yakubashko.electromark.service.BasketService;
 import com.yakubashko.electromark.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-
+    private final BasketService basketService;
     @GetMapping("/login")
     public String login(Principal principal, Model model) {
         model.addAttribute("user", userService.getUserByPrincipal(principal));
@@ -52,5 +53,11 @@ public class UserController {
         model.addAttribute("userByPrincipal", userService.getUserByPrincipal(principal));
         model.addAttribute("products", user.getProducts());
         return "user-info";
+    }
+
+    @GetMapping("/about")
+    public String about(Principal principal, Model model) {
+        model.addAttribute("user", userService.getUserByPrincipal(principal));
+        return "about";
     }
 }
